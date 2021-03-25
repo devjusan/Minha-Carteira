@@ -1,11 +1,7 @@
-import styled from 'styled-components'
-
-interface ITagProps {
-  color: string;
-}
+import styled from "styled-components";
 
 export const Container = styled.li`
-  background-color: ${props => props.theme.colors.tertiary};
+  background-color: ${(props) => props.theme.colors.tertiary};
   margin: 10px 0;
   padding: 12px 10px;
   list-style: none;
@@ -13,12 +9,12 @@ export const Container = styled.li`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  transition: all .3s;
+  transition: all 0.3s;
 
   position: relative;
 
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
     transform: translate3d(7px, 0, 0);
   }
 
@@ -30,15 +26,19 @@ export const Container = styled.li`
   }
 
   > div > span {
-    
+    font-size: 22px;
+    font-weight: 500;
   }
-
 `;
+
+interface ITagProps {
+  color: string;
+}
 
 export const Tag = styled.div<ITagProps>`
   position: absolute;
-  width: 10px;
-  height: 60%;
+  width: 13px;
+  height: 70%;
   left: 0;
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
 `;
