@@ -29,10 +29,14 @@ interface IData {
 
 const List: React.FC<IRouteParams> = ({ match }) => {
   const [data, setData] = React.useState<IData[]>([]);
-  const [monthSelected, setMonthSelected] = React.useState<string>("");
-  const [yearSelected, setYearSelected] = React.useState<string>("");
   const yearNow = new Date().getFullYear();
   const monthNow = new Date().getMonth() + 1;
+  const [monthSelected, setMonthSelected] = React.useState<string>(
+    String(monthNow)
+  );
+  const [yearSelected, setYearSelected] = React.useState<string>(
+    String(yearNow)
+  );
   const { type } = match.params;
 
   const ContentHeaderProps = React.useMemo(() => {
@@ -103,12 +107,12 @@ const List: React.FC<IRouteParams> = ({ match }) => {
         <SelectInput
           onChange={({ target }) => setMonthSelected(target.value)}
           options={months}
-          defaultValue={monthNow}
+          defaultValue={monthSelected}
         />
         <SelectInput
           onChange={({ target }) => setYearSelected(target.value)}
           options={years}
-          defaultValue={yearNow}
+          defaultValue={yearSelected}
         />
       </ContentHeader>
 
