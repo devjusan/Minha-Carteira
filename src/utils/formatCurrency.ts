@@ -1,5 +1,5 @@
-const formatCurrency = (current: number): string => {
-  return current.toLocaleString("pt-br", {
+const formatCurrency = (currency: number): string => {
+  return currency.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
   });

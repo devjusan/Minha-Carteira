@@ -2,13 +2,14 @@ import React from "react";
 import ContentHeader from "../../components/ContentHeader";
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 import SelectInput from "../../components/SelectInput";
-import { Container, Content, Filters } from "./styles";
+import { Container, Content, Filters, EmptyData } from "./styles";
 import gains from "../../repositories/gains"; /* entradas */
 import expenses from "../../repositories/expenses"; /* saídas */
 import formatCurrency from "../../utils/formatCurrency";
 import formatDate from "../../utils/formatDate";
 import ListOfTheMonths from "../../utils/months";
 import { uuid } from "uuidv4";
+import emojis from "../../utils/emojis";
 
 interface IRouteParams {
   match: {
@@ -37,6 +38,12 @@ const List: React.FC<IRouteParams> = ({ match }) => {
   const [yearSelected, setYearSelected] = React.useState<string>(
     String(yearNow)
   );
+  const [selectedFrequency, setSelectedFrequency] = React.useState<string[]>(
+    []
+  );
+
+  const [sizeOfData, setSizeOfData] = React.useState<number>(0);
+
   const { type } = match.params;
 
   const ContentHeaderProps = React.useMemo(() => {
@@ -75,14 +82,34 @@ const List: React.FC<IRouteParams> = ({ match }) => {
     });
   }, []);
 
+  const handleFrequencyClick = (frequency: string) => {
+    const alreadySelected = selectedFrequency.findIndex(
+      (item) => item === frequency
+    );
+
+    if (alreadySelected >= 0) {
+      const filtered = selectedFrequency.filter((item) => item !== frequency);
+      setSelectedFrequency(filtered);
+    } else {
+      setSelectedFrequency([...selectedFrequency, frequency]);
+    }
+  };
+
   React.useEffect(() => {
     const filteredData = listData.filter((item) => {
       const date = new Date(item.date);
       const month = String(date.getMonth() + 1);
       const year = String(date.getFullYear());
 
-      return month === monthSelected && year === yearSelected;
+      const showFilteredData =
+        month === monthSelected &&
+        year === yearSelected &&
+        selectedFrequency.includes(item.frequency);
+
+      return showFilteredData;
     });
+
+    setSizeOfData(filteredData.length);
 
     const FormattedData = filteredData.map((item) => {
       return {
@@ -96,7 +123,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
     });
 
     setData(FormattedData);
-  }, [data?.length, listData, monthSelected, yearSelected]);
+  }, [data?.length, listData, monthSelected, yearSelected, selectedFrequency]);
 
   return (
     <Container>
@@ -117,24 +144,40 @@ const List: React.FC<IRouteParams> = ({ match }) => {
       </ContentHeader>
 
       <Filters>
-        <button type="button" className="tag-filter tag-filter-recurrent">
+        <button
+          type="button"
+          className={`tag-filter tag-filter-recurrent ${
+            selectedFrequency.includes("recorrente") && "tag-actived"
+          }`}
+          onClick={() => handleFrequencyClick("recorrente")}
+        >
           Recorrentes
         </button>
-        <button type="button" className="tag-filter tag-filter-eventual">
+        <button
+          type="button"
+          className={`tag-filter tag-filter-eventual ${
+            selectedFrequency.includes("eventual") && "tag-actived"
+          }`}
+          onClick={() => handleFrequencyClick("eventual")}
+        >
           Eventuais
         </button>
       </Filters>
 
       <Content>
-        {data?.map((item) => (
-          <HistoryFinanceCard
-            key={item.id}
-            tagColor={item.tagColor}
-            title={item.description}
-            subTitle={item.dateFormatted}
-            amount={item.amountFormatted}
-          />
-        ))}
+        {sizeOfData > 0 && selectedFrequency.length > 0 && data ? (
+          data.map((item) => (
+            <HistoryFinanceCard
+              key={item.id}
+              tagColor={item.tagColor}
+              title={item.description}
+              subTitle={item.dateFormatted}
+              amount={item.amountFormatted}
+            />
+          ))
+        ) : (
+          <EmptyData>Não há nada aqui {emojis[4]}</EmptyData>
+        )}
       </Content>
     </Container>
   );

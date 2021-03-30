@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Container = styled.div``;
 
@@ -14,24 +14,23 @@ export const Filters = styled.div`
     font-size: 18px;
     font-weight: 500;
     background: none;
-    color: ${props => props.theme.colors.themeColor};
+    color: ${(props) => props.theme.colors.themeColor};
 
     margin: 0 10px;
-
-    transition: opacity .3s;
+    opacity: 0.35;
+    transition: opacity 0.3s;
 
     &:hover {
-      opacity: .7;
+      opacity: 0.7;
     }
 
     &::after {
-      content: '';
+      content: "";
       display: block;
       width: 55px;
       margin: 0 auto;
-      border-bottom: 10px solid ${props => props.theme.colors.warning};
+      border-bottom: 10px solid ${(props) => props.theme.colors.warning};
     }
-
   }
 
   .tag-filter-recurrent {
@@ -43,18 +42,29 @@ export const Filters = styled.div`
   }
 
   .tag-filter-recurrent::after {
-    content: '';
-      display: block;
-      width: 55px;
-      margin: 0 auto;
-      border-bottom: 10px solid ${props => props.theme.colors.warning};
+    content: "";
+    display: block;
+    width: 55px;
+    margin: 0 auto;
+    border-bottom: 10px solid ${(props) => props.theme.colors.success};
   }
 
   .tag-filter-eventual::after {
-    content: '';
-      display: block;
-      width: 55px;
-      margin: 0 auto;
-      border-bottom: 10px solid ${props => props.theme.colors.success};
+    content: "";
+    display: block;
+    width: 55px;
+    margin: 0 auto;
+    border-bottom: 10px solid ${(props) => props.theme.colors.warning};
   }
+
+  .tag-actived {
+    opacity: 1;
+  }
+`;
+
+export const EmptyData = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  background: none;
+  color: ${(props) => props.theme.colors.themeColor};
 `;
