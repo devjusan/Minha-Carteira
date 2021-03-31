@@ -46,7 +46,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
 
   const ContentHeaderProps = React.useMemo(() => {
     return movimentType === "entry-balance"
-      ? { title: "Entradas", lineColor: "#f7931b", listData: gains }
+      ? { title: "Entradas", lineColor: "#4e41f0", listData: gains }
       : { title: "Saídas", lineColor: "#e44c4e", listData: expenses };
   }, [movimentType]);
 
@@ -141,7 +141,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
       const parseYear = Number(year);
       setYearSelected(parseYear);
     } catch (err) {
-      throw new Error("Invalid month value. Its only accepted 0 to 24");
+      throw new Error("Invalid year value. Its only accepted integer numbers.");
     }
   };
 
