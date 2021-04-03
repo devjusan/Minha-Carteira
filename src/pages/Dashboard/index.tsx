@@ -1,10 +1,11 @@
 import React from "react";
 import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
-import { Container } from "./styled";
+import { Container, Content } from "./styled";
 import expenses from "../../repositories/expenses";
 import gains from "../../repositories/expenses";
 import ListOfTheMonths from "../../utils/months";
+import WalletBox from "../../components/WalletBox";
 
 const Dashboard: React.FC = () => {
   const yearNow = new Date().getFullYear();
@@ -74,6 +75,29 @@ const Dashboard: React.FC = () => {
           defaultValue={yearSelected}
         />
       </ContentHeader>
+      <Content>
+        <WalletBox
+          title="saldo"
+          amount={150}
+          footerLabel="atualizado com base nas entradas e saídas"
+          icon="dolar"
+          color="#4e41f0"
+        />
+        <WalletBox
+          title="entradas"
+          amount={5000}
+          footerLabel="atualizado com base nas entradas e saídas"
+          icon="arrowUp"
+          color="#f7931b"
+        />
+        <WalletBox
+          title="saídas"
+          amount={4850}
+          footerLabel="atualizado com base nas entradas e saídas"
+          icon="arrowDown"
+          color="#e44c4e"
+        />
+      </Content>
     </Container>
   );
 };
