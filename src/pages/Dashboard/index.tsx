@@ -6,6 +6,8 @@ import grinningImg from "../../assets/grinning.svg";
 import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
 import MessageBox from "../../components/MessageBox";
+import PieChart from "../../components/PieChart";
+
 import { Container, Content } from "./styled";
 import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
@@ -174,6 +176,7 @@ const Dashboard: React.FC = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
+        <PieChart />
       </Content>
     </Container>
   );
