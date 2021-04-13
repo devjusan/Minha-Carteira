@@ -12,7 +12,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 
   > header img {
     width: 35px;
@@ -20,6 +19,10 @@ export const Container = styled.div`
   }
 
   > header p {
-    font-style: 18px;
+    font-size: 18px;
+  }
+
+  > footer {
+    font-size: 15px;
   }
 `;
