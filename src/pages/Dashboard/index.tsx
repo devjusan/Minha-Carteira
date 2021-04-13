@@ -1,6 +1,10 @@
 import React from "react";
+import happyImg from "../../assets/happy.svg";
+import sadImg from "../../assets/sad.svg";
+
 import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
+import MessageBox from "../../components/MessageBox";
 import { Container, Content } from "./styled";
 import expenses from "../../repositories/expenses";
 import gains from "../../repositories/expenses";
@@ -12,10 +16,6 @@ const Dashboard: React.FC = () => {
   const monthNow = new Date().getMonth() + 1;
   const [monthSelected, setMonthSelected] = React.useState<number>(monthNow);
   const [yearSelected, setYearSelected] = React.useState<number>(yearNow);
-  const options = [
-    { value: "junior", label: "Junior" },
-    { value: "leo", label: "Léo" },
-  ];
 
   const years = React.useMemo(() => {
     let uniqueYear: number[] = [];
@@ -96,6 +96,13 @@ const Dashboard: React.FC = () => {
           footerLabel="atualizado com base nas entradas e saídas"
           icon="arrowDown"
           color="#e44c4e"
+        />
+
+        <MessageBox
+          title="Muito bem!"
+          description="Sua carteira está positiva!"
+          footerText="Continua assim. Considere investir o seu saldo"
+          icon={happyImg}
         />
       </Content>
     </Container>
