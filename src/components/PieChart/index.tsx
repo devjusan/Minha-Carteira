@@ -8,37 +8,42 @@ import {
 } from "./styles";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-const PieChartComponent: React.FC = ({ children }) => (
+interface IPieChartComponentProps {
+  data: {
+    name: string;
+    value: number;
+    percent: number;
+    color: string;
+  }[];
+}
+
+const PieChartComponent: React.FC<IPieChartComponentProps> = ({ data }) => (
   <Container>
     <SideLeft>
       <h2>Relação</h2>
       <LegendContainer>
-        <Legend color="#f7931b">
-          <div>5%</div>
-          <span>Entradas</span>
-        </Legend>
-        <Legend color="#e44c4e">
-          <div>95%</div>
-          <span>Saídas</span>
-        </Legend>
-        <Legend color="#f7931b">
-          <div>5%</div>
-          <span>Entradas</span>
-        </Legend>
-        <Legend color="#e44c4e">
-          <div>95%</div>
-          <span>Saídas</span>
-        </Legend>
+        {data ? (
+          data.map((indicator) => {
+            return (
+              <Legend key={indicator.name} color={indicator.color}>
+                <div>{indicator.percent}</div>
+                <span>{indicator.name}</span>
+              </Legend>
+            );
+          })
+        ) : (
+          <Legend color="f7931b">Sem dados</Legend>
+        )}
       </LegendContainer>
     </SideLeft>
     <SideRight>
       <ResponsiveContainer>
         <PieChart>
-          <Pie
-            dataKey="percent"
-            labelLine={false}
-            data={[{ amount: 30, percent: 95 }]}
-          />
+          <Pie dataKey="percent" data={data}>
+            {data.map((indicator) => {
+              return <Cell key={indicator.name} fill={indicator.color} />;
+            })}
+          </Pie>
         </PieChart>
       </ResponsiveContainer>
     </SideRight>

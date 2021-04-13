@@ -1,4 +1,3 @@
-import { MdColorize } from "react-icons/md";
 import styled from "styled-components";
 
 interface ILegendProps {
@@ -60,4 +59,8 @@ export const Legend = styled.li<ILegendProps>`
   }
 `;
 
-export const SideRight = styled.main``;
+export const SideRight = styled.main`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`;
