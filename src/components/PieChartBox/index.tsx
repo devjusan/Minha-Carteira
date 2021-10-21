@@ -17,20 +17,18 @@ interface IPieChartComponentProps {
   }[];
 }
 
-const PieChartComponent: React.FC<IPieChartComponentProps> = ({ data }) => (
+const PieChartComponentBox: React.FC<IPieChartComponentProps> = ({ data }) => (
   <Container>
     <SideLeft>
       <h2>Relação</h2>
       <LegendContainer>
         {data ? (
-          data.map((indicator) => {
-            return (
+          data.map((indicator) => 
               <Legend key={indicator.name} color={indicator.color}>
                 <div>{indicator.percent}</div>
                 <span>{indicator.name}</span>
-              </Legend>
-            );
-          })
+              </Legend>            
+          )
         ) : (
           <Legend color="f7931b">Sem dados</Legend>
         )}
@@ -40,9 +38,7 @@ const PieChartComponent: React.FC<IPieChartComponentProps> = ({ data }) => (
       <ResponsiveContainer>
         <PieChart>
           <Pie dataKey="percent" data={data}>
-            {data.map((indicator) => {
-              return <Cell key={indicator.name} fill={indicator.color} />;
-            })}
+            {data.map((indicator) => <Cell key={indicator.name} fill={indicator.color} />)}
           </Pie>
         </PieChart>
       </ResponsiveContainer>
@@ -50,4 +46,4 @@ const PieChartComponent: React.FC<IPieChartComponentProps> = ({ data }) => (
   </Container>
 );
 
-export default PieChartComponent;
+export default PieChartComponentBox;

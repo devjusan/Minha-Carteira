@@ -6,7 +6,7 @@ import grinningImg from "../../assets/grinning.svg";
 import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
 import MessageBox from "../../components/MessageBox";
-import PieChart from "../../components/PieChart";
+import PieChart from "../../components/PieChartBox";
 
 import { Container, Content } from "./styled";
 import expenses from "../../repositories/expenses";
@@ -116,7 +116,7 @@ const Dashboard: React.FC = () => {
   }, [totalBalance]);
 
   const relationExpensesVersusGains = React.useMemo(() => {
-    const total = TotalGains + TotalExpenses;
+    const total = TotalGains + TotalExpenses || 1;
     const gainsPercent = (TotalGains / total) * 100;
     const expensesPercent = (TotalExpenses / total) * 100;
     const data = [
